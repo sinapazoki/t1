@@ -5,13 +5,11 @@
 
 @section('header-scripts')
 <script src="//unpkg.com/alpinejs" defer></script>
-
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
 @endsection
+
+
 @section('content')
-
-
-   
-
 <!-- Section 1 -->
 <section >
    <div class="bg-[url('/storage/admin-image/hero.jpg')]  to-primary-100 pt-20">
@@ -74,9 +72,9 @@
   
 <section class="py-20 bg-[url('/storage/admin-image/cube.png')] bg-no-repeat bg-contain bg-center">
     <div class="container max-w-6xl mx-auto ">
-        <h2 class="text-primary-800 text-5xl font-bold tracking-tight text-center">خدمات و ویژگی ها</h2>
+        <h2 class="text-primary-800 text-3xl md:text-5xl font-bold tracking-tight text-center">خدمات و ویژگی ها</h2>
         <p class="mt-2 text-lg text-center text-gray-600">با تی وان ایده های خود را ثبت کنید</p>
-        <div class="grid grid-cols-4 gap-8 mt-10 sm:grid-cols-8 lg:grid-cols-12 sm:px-8 xl:px-0">
+        <div class="grid grid-cols-4 gap-8 mt-10 sm:grid-cols-8 lg:grid-cols-12 px-6 xl:px-0">
 
             <div class=" zoom-in relative flex flex-col flex-start items-center col-span-4 px-8 pb-8 space-y-4  bg-white sm:rounded-xl" style="
             box-shadow: 0px 7px 22px #f0f0f0;">
@@ -148,16 +146,16 @@
 <section class="flex items-center justify-center py-16 min-w-screen">
     <div class="max-w-6xl mx-auto  md:px-16 xl:px-10">
         <div class="flex flex-col items-center lg:flex-row">
-            <div class="flex flex-col items-start justify-center w-full h-full pl-8 mb-10 lg:mb-0 lg:w-1/2">
+            <div class="flex flex-col items-start justify-center w-full h-full md:pl-8 px-5 mb-10 lg:mb-0 lg:w-1/2">
                 <p class="mb-2 text-base font-medium tracking-tight text-primary-800 uppercase">کاربرانی که همراه ما بوده اند</p>
                 <h2 class="text-4xl font-extrabold leading-10 tracking-tight text-primary-800 sm:text-5xl sm:leading-none md:text-6xl lg:text-5xl xl:text-6xl">تجربه کاربران</h2>
-                <p class="my-6 text-lg text-gray-600">ایده ها و فرصت های بسیاری در تی وان تبدیل به سرمایه و توسعه یک برند شده اند و همواره در تلاش هستیم تجربیات موفق دیگران را در اختیار شما قرار دهیم.</p>
+                <p class="my-6 text-lg text-gray-600 text-justify">ایده ها و فرصت های بسیاری در تی وان تبدیل به سرمایه و توسعه یک برند شده اند و همواره در تلاش هستیم تجربیات موفق دیگران را در اختیار شما قرار دهیم.</p>
                 <div class="flex items-center justify-center space-x-3 mt-5 md:mt-0 btn-zoom">
                     <a href="http://127.0.0.1:8000/login-register" class="bg-primary-100 animate-pulse  w-12 h-12 rounded-full flex items-center justify-center ml-2"><svg viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2"><path d="M22.5751 12.8097C23.2212 13.1983 23.2212 14.135 22.5751 14.5236L1.51538 27.1891C0.848878 27.5899 5.91205e-07 27.1099 6.25202e-07 26.3321L1.73245e-06 1.00123C1.76645e-06 0.223477 0.848877 -0.256572 1.51538 0.14427L22.5751 12.8097Z" fill="#7d94bd"></path></svg></a><span class="cursor-pointer">درباره ما بیشتر بدانید</span>
                 </div>
             </div>
 
-            <div class="w-full lg:w-1/2">
+            <div class="w-11/12 lg:w-1/2">
                 <blockquote style="box-shadow:  0px 7px 22px #f0f0f0;" class="flex items-center justify-between w-full col-span-1 p-6 bg-white rounded-lg shadow">
                     <div class="flex flex-col pr-8">
                         <div class="relative pl-12">
@@ -217,59 +215,149 @@
 
 
 
-<section class="relative w-full bg-white">
-    <div class="absolute w-full h-32 "></div>
-    <div class="relative w-full px-5 py-10 mx-auto sm:py-12 md:py-16 md:px-10 max-w-7xl">
+<section class="py-20">
+    <div class="max-w-6xl mb-5 text-center mx-auto ">
+        <h2 class="text-primary-800 text-3xl md:text-5xl font-bold tracking-tight text-center">مقالات و اخبار</h2>
+        <p class="mt-2 text-lg text-center text-gray-600">اطلاع از آخرین اخبار تی وان</p>
+         </div>
+    <div class="swiper sm:!px-[40px] sm:!pt-[100px] mySwiper max-w-6xl mx-auto md:p-[10px]">
+                <div class="swiper-wrapper grid grid-cols-9">
+        @foreach ( $posts as $post )
+        <div class="swiper-slide px-[48px] pt-[100px] sm:p-0 xl:col-span-3 md:col-span-4 sm:col-span-4 col-span-9 mb-15">
+            <div class="shadow-smswiper-slide-active rounded-lg shadow-[1px_1px_19px_#f3f3f3] relative pt-52 flex justify-center h-full">
+                <div class="absolute -top-24  w-full  px-4 ">
+                    <a href="{{asset($post->Path())}}" class=" inline-block overflow-hidden w-full h-72 rounded-lg">
+                        @if ($post->image)
+                        <img class="hover:scale-110 w-full h-full transform transition duration-200 object-fill " src="{{asset($post->image)}}" alt="{{$post->name}}">
+                        @else
+                        <img class="w-full h-full bg-white object-cover transform transition duration-200 " src="/storage/site/holder.png">
+                        @endif
+                        <div class="absolute z-50 top-2 -left-[20px]">
+                            <div class="pb-1 px-4">
+                                <div class="flex justify-center items-center pb-2">
+                                    <div class="flex items-center">
+                                                    <div class="flex items-center justify-center shadow-[1px_1px_19px_#f3f3f3] bg-white rounded w-[50px] h-[50px] p-7">
+                                                        {{-- <svg class="ml-1" width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M1.29921 7.10036C1.29921 8.47492 1.37342 9.55017 1.56095 10.394C1.74739 11.2329 2.04007 11.8164 2.45902 12.2353C2.87796 12.6543 3.4615 12.947 4.30041 13.1334C5.14419 13.3209 6.21945 13.3952 7.594 13.3952C8.96856 13.3952 10.0438 13.3209 10.8876 13.1334C11.7265 12.947 12.31 12.6543 12.729 12.2353C13.1479 11.8164 13.4406 11.2329 13.6271 10.394C13.8146 9.55017 13.8888 8.47492 13.8888 7.10036C13.8888 5.72581 13.8146 4.65055 13.6271 3.80677C13.4406 2.96786 13.1479 2.38432 12.729 1.96538C12.31 1.54643 11.7265 1.25375 10.8876 1.06731C10.0438 0.879784 8.96856 0.805572 7.594 0.805572C6.21945 0.805572 5.14419 0.879784 4.30041 1.06731C3.4615 1.25375 2.87796 1.54643 2.45902 1.96538C2.04007 2.38432 1.74739 2.96786 1.56095 3.80677C1.37342 4.65055 1.29921 5.72581 1.29921 7.10036Z" stroke="#607496" stroke-width="0.858919" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                            <path d="M7.59399 3.73825C7.59399 3.73825 7.59399 5.97967 7.59399 6.54002C7.59399 7.10038 7.59399 7.10038 8.15435 7.10038C8.71471 7.10038 10.9561 7.10038 10.9561 7.10038" stroke="#607496" stroke-width="0.858919" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                        </svg> --}}
 
-        <h2 class="text-primary-800 text-5xl font-bold tracking-tight text-center">اخبار و مقالات</h2>
-        <p class="mt-2 text-lg text-center text-gray-600">آخرین اخبار و مقالات حوزه فناوری</p>
-        <div class="flex grid h-full grid-cols-12 gap-10 pb-10 mt-8 sm:mt-16">
+                                                        <div class="flex flex-col justify-center items-center">
+                                                            <span class="text-gray-500 font-normal text-[25px]">{{jdate($post->created_at)->format('%d')}}</span>
+                                                            <span class="text-gray-500 font-normal text-[15px] -mt-3">{{jdate($post->created_at)->format('%B')}}</span>
 
-            <div class="grid grid-cols-12 col-span-12 gap-7">
-                <div class="flex flex-col items-start col-span-12 overflow-hidden shadow-sm rounded-xl md:col-span-6 lg:col-span-4">
-                    <a href="#_" class="block transition duration-200 ease-out transform hover:scale-110">
-                        <img class="object-cover w-full shadow-sm " src="https://cdn.devdojo.com/images/may2021/workstation.jpg">
-                    </a>
-                    <div class="relative flex flex-col items-start px-6 bg-white border border-t-0 border-gray-200 py-7 rounded-b-2xl">
-                        <div class="bg-indigo-400 absolute top-0 -mt-3 flex items-center px-3 py-1.5 leading-none w-auto inline-block rounded-full text-xs font-medium uppercase text-white inline-block">
-                            <span>مقالات آموزشی</span>
+                                                        </div>
+
+                                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+    
                         </div>
-                        <h2 class="text-base font-bold sm:text-lg md:text-xl"><a href="#_">تکنیک های برتر توسعه برند چیست ؟</a></h2>
-                        <p class="mt-2 text-sm text-gray-500">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،..... </p>
-                    </div>
+                    </a>
                 </div>
+                <div class="flex flex-col flex-1 w-full space-y-2 bg-white p-4">
+                    <div class=" px-4 flex flex-col flex-grow">
+                        <span class="flex justify-center -mt-[46px] mb-[20px] z-10 rounded-lg p-1 bg-primary-800 text-white text-[13px] w-[60%] mx-auto">
+                            {{$post->PostCategory->name}}
+                        </span>
+                        <a href="{{asset($post->Path())}}" class="mb-2 inline-block">
+                            <span class="text-[1.1rem] font-bold text-gray-800 hover:text-blue-700 duration-200 transition">{{$post->title}}</span>
+                        </a>
+                            <?php
+                                $string_without_tags = strip_tags($post->body); 
+                                $paragraph=substr($string_without_tags,0,220) . '...';
+                            ?>
+                        <div class="mb-2 text-gray-360 text-[12px] text-justify font-normal overflow-hidden leading-4">{!!$paragraph!!}</div>
+                        <div class="flex items-center flex-wrap " style="    display: flex;    flex-direction: row-reverse;">
+                      <a href="{{asset($post->Path())}}" class="text-primary-800  md:mb-2 lg:mb-0">
+                        <p class="inline-flex items-center flex-row-reverse text-sm">مشاهده مطلب
+                          <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14"></path>
+                            <path d="M12 5l7 7-7 7"></path>
+                          </svg>
+                        </p>
+                      </a>
+                      <span class="text-gray-400 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm py-1 border-gray-200">
+                        <i class="w-4 ml-1 text-primary-500" data-feather="eye"></i>
+                        {{$post->reads}}
+                      </span>
 
-                <div class="flex flex-col items-start col-span-12 overflow-hidden shadow-sm rounded-xl md:col-span-6 lg:col-span-4">
-                    <a href="#_" class="block transition duration-200 ease-out transform hover:scale-110">
-                        <img class="object-cover w-full shadow-sm" src="https://cdn.devdojo.com/images/may2021/workstation.jpg">
-                    </a>
-                    <div class="relative flex flex-col items-start px-6 bg-white border border-t-0 border-gray-200 py-7 rounded-b-2xl">
-                        <div class="bg-red-400 absolute top-0 -mt-3 flex items-center px-3 py-1.5 leading-none w-auto inline-block rounded-full text-xs font-medium uppercase text-white inline-block">
-                            <span>مقالات آموزشی</span>
-                        </div>
-                        <h2 class="text-base font-bold sm:text-lg md:text-xl"><a href="#_">مراحل قانونی ثبت اختراع چیست ؟</a></h2>
-                        <p class="mt-2 text-sm text-gray-500">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،.....</p>
                     </div>
-                </div>
+                    </div>
+                    {{-- <div>
+                        <div class="pb-1 px-4">
+                            <div class="flex justify-center items-center pb-2">
+                                <div class="flex items-center">
+                                                <div class="flex items-center bg-gray-100 px-2 h-6 rounded ml-2">
+                                                    <svg class="ml-1" width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M1.29921 7.10036C1.29921 8.47492 1.37342 9.55017 1.56095 10.394C1.74739 11.2329 2.04007 11.8164 2.45902 12.2353C2.87796 12.6543 3.4615 12.947 4.30041 13.1334C5.14419 13.3209 6.21945 13.3952 7.594 13.3952C8.96856 13.3952 10.0438 13.3209 10.8876 13.1334C11.7265 12.947 12.31 12.6543 12.729 12.2353C13.1479 11.8164 13.4406 11.2329 13.6271 10.394C13.8146 9.55017 13.8888 8.47492 13.8888 7.10036C13.8888 5.72581 13.8146 4.65055 13.6271 3.80677C13.4406 2.96786 13.1479 2.38432 12.729 1.96538C12.31 1.54643 11.7265 1.25375 10.8876 1.06731C10.0438 0.879784 8.96856 0.805572 7.594 0.805572C6.21945 0.805572 5.14419 0.879784 4.30041 1.06731C3.4615 1.25375 2.87796 1.54643 2.45902 1.96538C2.04007 2.38432 1.74739 2.96786 1.56095 3.80677C1.37342 4.65055 1.29921 5.72581 1.29921 7.10036Z" stroke="#607496" stroke-width="0.858919" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                        <path d="M7.59399 3.73825C7.59399 3.73825 7.59399 5.97967 7.59399 6.54002C7.59399 7.10038 7.59399 7.10038 8.15435 7.10038C8.71471 7.10038 10.9561 7.10038 10.9561 7.10038" stroke="#607496" stroke-width="0.858919" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                    </svg>
+                                                    <span class="text-gray-500 font-normal text-xs">{{$post->created_at->toDateString()}}</span>
+                                                </div>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="flex flex-col items-start col-span-12 overflow-hidden shadow-sm rounded-xl md:col-span-6 lg:col-span-4">
-                    <a href="#_" class="block transition duration-200 ease-out transform hover:scale-110">
-                        <img class="object-cover w-full shadow-sm " src="https://cdn.devdojo.com/images/may2021/workstation.jpg">
-                    </a>
-                    <div class="relative flex flex-col items-start px-6 bg-white border border-t-0 border-gray-200 py-7 rounded-b-2xl">
-                        <div class="bg-purple-500 absolute top-0 -mt-3 flex items-center px-3 py-1.5 leading-none w-auto inline-block rounded-full text-xs font-medium uppercase text-white inline-block">
-                            <span>مقالات آموزشی</span>
-                        </div>
-                        <h2 class="text-base font-bold sm:text-lg md:text-xl"><a href="#_">شرایط فروش محصول بعد از توسعه</a></h2>
-                        <p class="mt-2 text-sm text-gray-500">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،.....</p>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
-
         </div>
-    </div>
+        @endforeach
+
+
+</div>
+
+    <div class="swiper-pagination"></div>
+
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+</div>
+
 </section>
 
 
     
+
 @endsection
+
+
+
+@section('footer-scripts')
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 1,
+      spaceBetween: 0,
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+
+      },
+
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+          spaceBetween:20,
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 20,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween:50,
+        },
+      },
+      navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    });
+  </script>
+  @endsection
+
+

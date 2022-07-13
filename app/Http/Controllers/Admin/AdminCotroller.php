@@ -22,7 +22,7 @@ class AdminCotroller extends Controller
 
      public function UserList()
     {
-        return view('site.Admin.admin-users');
+        return view('site.Admin.User.admin-users');
 
     }
 
@@ -42,24 +42,12 @@ class AdminCotroller extends Controller
 
     }
 
-//     public function SendEmailNotifies(Request $request)
-//     {
-//         $emails = $request->email_id;
-//         $emails = $request->title;
 
-//         foreach ($emails as $key => $email_value) {
-//             $devicesS[] = [
-//                 'email_address' => $email_value,
-//             ];
-//         } 
-//         dd($devicesS);
-//    }
 
     public function AdminNotifies()
     {
-    //    dd(Carbon::today()->toDateString());
 
-        return view('site.Admin.admin-emails');
+        return view('site.Admin.Email.admin-emails');
 
     }
 

@@ -27,7 +27,7 @@
                   <div class="relative flex items-center justify-between h-16">
                     <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
                       <!-- Mobile menu button-->
-                      <button type="button" class="inline-flex items-center justify-center bg-gradient-to-tr from-[#00c7ba] to-[#00abc7] shadow-lg rounded-md text-white hover:text-white hover:bg-gradient-to-tr from-[#00c7ba] to-[#00abc7] p-[7px]" aria-controls="mobile-menu" aria-expanded="false">
+                      <button type="button" class="inline-flex items-center justify-center shadow-lg rounded-md text-primary-900  p-[7px]" aria-controls="mobile-menu" aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
                         <!--
                           Icon when menu is closed.
@@ -55,7 +55,7 @@
                     <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                       <div class="flex-shrink-0 flex items-center mylogo">
                           <a href="#">
-                            <img class="block lg:hidden h-[1.5rem] w-auto pr-[30px]" src="{{'/storage/admin-image/logo.png'}}" alt="Workflow">
+                            <img class="block lg:hidden h-[3.5rem] w-auto pr-[30px]" src="{{'/storage/admin-image/logo.png'}}" alt="Workflow">
                             <img class="hidden lg:block h-[3.5rem] w-auto" src="{{'/storage/admin-image/logo.png'}}" alt="Workflow">
                           </a>
                       </div>
@@ -271,11 +271,13 @@
 
 
             @show
-            @section('footer-scripts')
+
             <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
               <x-livewire-alert::scripts />
             @livewireScripts
-
+            @section('footer-scripts')
+            
+            @show
         </body>
 
 

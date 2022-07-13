@@ -40,6 +40,52 @@ class UserForm extends Component
 
     }
 
+
+    public function update()
+    {
+
+            $user = User::find($this->user_id);
+            if($this->imageupdated)
+            {
+                $image = $this->imageupdated;
+            }
+            else
+            {
+                $image= $this->image;
+            }
+            $user->role()->associate($this->role_id);
+
+            if(isset($this->password))
+            {
+                $user->update([
+                    'first_name' => $this->first_name,
+                    'last_name' => $this->last_name,
+                    'email' => $this->email,
+                    'phone' => $this->phone,
+                    'password' => bcrypt($this->password),
+                    'image' => $image,
+                ]);
+            }
+            else
+            {
+                $user->update([
+                    'first_name' => $this->first_name,
+                    'last_name' => $this->last_name,
+                    'phone' => $this->phone,
+                    'email' => $this->email,
+                    'image' => $image,
+                ]);
+            }
+
+            $this->updateMode = false;
+            $this->alert('success', 'تغییرات با موفقیت ثبت شد', [
+                'position' => 'center'
+            ]);
+            $this->resetInputFields();
+
+
+    }
+
     public function edit($id)
     {
         $this->updateMode = true;

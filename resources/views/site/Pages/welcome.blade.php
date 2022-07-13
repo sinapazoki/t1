@@ -10,35 +10,35 @@
     
     <div class="z-50 flex flex-col justify-center text-white w-full h-screen">
       <img class="mx-auto h-28 w-auto" src="{{'/storage/admin-image/logo-white.png'}}" alt="Workflow">
-      <h1 class="text-8xl"><b>بـــه زودی</b></h1>
+      <h1 class="text-6xl md:text-8xl"><b>بـــه زودی</b></h1>
     <p class="mt-5 ">با تی وان در کنارتان هستیم!</p>
     
 
 
 
-    <div class="grid grid-flow-col gap-10 text-center auto-cols-max mx-auto sm:mt-10">
+    <div class="grid grid-cols-4 gap-10 text-center mx-auto mt-[30px] sm:mt-10">
         <div class="flex flex-col">
-            <span class="countdown text-8xl">
+            <span class="countdown text-4xl md:text-8xl">
               <span id="sec" style="--value:52;"></span>
             </span>
             <span class="text-xl">ثانیه</span>
             
           </div>
           <div class="flex flex-col">
-            <span class="countdown text-8xl">
+            <span class="countdown text-4xl md:text-8xl">
               <span id="min" style="--value:24;"></span>
             </span>
             <span class="text-xl">دقیقه</span>
             
           </div> 
           <div class="flex flex-col">
-            <span class="countdown text-8xl">
+            <span class="countdown text-4xl md:text-8xl">
               <span id="hours" style="--value:10;"></span>
             </span>
             <span class="text-xl">ساعت</span>
           </div> 
         <div class="flex flex-col">
-          <span class="countdown text-8xl">
+          <span class="countdown text-4xl md:text-8xl">
             <span id="days" style="--value:15;"></span>
           </span>
           <span class="text-xl">روز</span>

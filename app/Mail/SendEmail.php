@@ -32,6 +32,6 @@ class SendEmail extends Mailable
     public function build()
     {
         return $this->subject($this->title)
-        ->view('site.Admin.email-send');
+        ->view('site.Admin.Email.email-send');
     }
 }

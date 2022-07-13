@@ -20,7 +20,6 @@
 
 
         <body  x-data="dropdown" class="main font-iranyekan">
-            @livewireScripts
             <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
             <div
@@ -54,7 +53,7 @@
                   <li class="relative px-6 py-3">
                     <a
                       class="space-x-2 space-x-reverse inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                      href=""
+                      href="{{route('admin-post-list')}}"
                     >
                     <div class="menu__icon"> <i data-feather="book"></i> </div>
                     <div class="menu__title">مطالب وبلاگ </div>
@@ -63,19 +62,19 @@
                   <li class="relative px-6 py-3">
                     <a
                       class="space-x-2 space-x-reverse inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                      href=""
+                      href="{{route('admin-post-category')}}"
                     >
                     <div class="menu__icon"> <i data-feather="file-text"></i> </div>
-                    <div class="menu__title">مدیریت برچسب ها</div>
+                    <div class="menu__title">مدیریت دسته بندی ها</div>
                     </a>
                   </li>
                   <li class="relative px-6 py-3">
                     <a
                       class="space-x-2 space-x-reverse inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                      href=""
+                      href="{{route('admin-email-list')}}"
                     >
-                    <div class="menu__icon"> <i data-feather="file-text"></i> </div>
-                    <div class="menu__title">مدیریت دسته بندی ها</div>
+                    <div class="menu__icon"> <i data-feather="mail"></i> </div>
+                    <div class="menu__title">اطلاعیه ایمیل</div>
                     </a>
                   </li>
                   <li class="relative px-6 py-3">
@@ -164,7 +163,7 @@
                   <li class="relative px-6 py-3">
                     <a
                       class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                      href=""
+                      href="{{route('admin-post-list')}}"
                     >
                     <div class="menu__icon"> <i data-feather="book"></i> </div>
                     <div class="menu__title">  مطالب وبلاگ</div>
@@ -173,19 +172,19 @@
                   <li class="relative px-6 py-3">
                     <a
                       class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                      href=""
+                      href="{{route('admin-post-category')}}"
                     >
                     <div class="menu__icon"> <i data-feather="file-text"></i> </div>
-                    <div class="menu__title">مدیریت برچسب ها</div>
+                    <div class="menu__title">مدیریت دسته بندی ها</div>
                     </a>
                   </li>
                   <li class="relative px-6 py-3">
                     <a
                       class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                      href=""
+                      href="{{route('admin-email-list')}}"
                     >
-                    <div class="menu__icon"> <i data-feather="file-text"></i> </div>
-                    <div class="menu__title">مدیریت دسته بندی ها</div>
+                    <div class="menu__icon"> <i data-feather="mail"></i> </div>
+                    <div class="menu__title">اطلاعیه ایمیل</div>
                     </a>
                   </li>
                   <li class="relative px-6 py-3">
@@ -422,11 +421,12 @@
           <script>
             feather.replace()
           </script>
+                  @livewireScripts
+
         @section('footer-scripts')
 
         @show
 
-        @livewireScripts
         <x-livewire-alert::scripts />
         </body>
 

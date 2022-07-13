@@ -41,7 +41,7 @@
                                 @endif
                               <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
                             </div>
-                            <div>
+                            <div class="text-right">
                               <p class="font-semibold">{{$user->first_name.' '.$user->last_name}}</p>
                               <p class="text-xs text-gray-600 dark:text-gray-400">
                                 {{ $user->role_id == 2 ? "کاربر" : "ادمین" }}

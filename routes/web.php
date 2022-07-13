@@ -1,8 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminCotroller;
+use App\Http\Controllers\Admin\Content\PostCategoryController;
+use App\Http\Controllers\Admin\Content\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\Customer\LoginRegisterController;
+use App\Http\Controllers\Blog\BlogController;
+use App\Http\Controllers\Site\SiteController;
+use App\Http\Livewire\Admin\PostCreate;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,10 +41,18 @@ Route::prefix('admin')->namespace('Admin')->group( function() {
     Route::post('/login', [AdminCotroller::class , 'LoginCheck' ] )->name('admin-login-check');
 
     Route::middleware('admin')->group( function() {
+        
         Route::get('dashboard', [AdminCotroller::class , 'index' ] )->name('admin-home');
         Route::get('users', [AdminCotroller::class , 'UserList' ] )->name('admin-user-list');
         Route::get('emails', [AdminCotroller::class , 'AdminNotifies' ] )->name('admin-email-list');
-        Route::post('emails', [AdminCotroller::class , 'SendEmailNotifies' ] )->name('admin-send-email');
+
+        Route::get('posts/categories', [PostCategoryController::class , 'index' ] )->name('admin-post-category');
+        Route::get('posts', [PostController::class , 'index' ] )->name('admin-post-list');
+        Route::get('posts/create', [PostController::class , 'create' ] )->name('admin-post-create');
+
+
+
+
 
         Route::group(['prefix' => 'laravel-filemanager'], function () {
             \UniSharp\LaravelFilemanager\Lfm::routes();
@@ -49,12 +62,16 @@ Route::prefix('admin')->namespace('Admin')->group( function() {
     });
 
 
+
+
+
 Route::post('logout', [LoginRegisterController::class, 'logout'])->name('logout');
 
 Route::get('/', function () {
     return view('site.Pages.welcome');
 })->name('home');
 
-Route::get('/home', function () {
-    return view('site.Pages.home');
-})->name('main');
+Route::get('/home', [SiteController::class, 'index'])->name('site.home');
+Route::get('/post/{category:category_id}/{post:slug}', [BlogController::class, 'show'])->name('post.single');
+Route::get('/post/category/{category:category_id}', [BlogController::class, 'ShowCategory'])->name('post.category');
+Route::get('/posts', [BlogController::class, 'index'])->name('post.index');
