@@ -7,12 +7,21 @@
 @includeWhen($updateMode,'livewire.admin.post.post-update' )
 
       
-    <div class="mt-5" x-data="{  main: $persist(true).using(sessionStorage) , trashed: $persist(false).using(sessionStorage) }" >
-      @if (count($trashes) > 0)
-      <button class="text-sm p-2 rounded-md bg-gray-200" @click="main = !main ; trashed = !trashed "  x-text="main == true ? 'مشاهده زباله دان {{'" '.count($trashes).' مورد "'}}' : 'مشاهده همه موارد {{'" '.count($posts).' مورد "'}}'"></button>
-      @else
-      <button class="text-sm p-2 rounded-md bg-gray-200"  >مشاهده همه موارد {{count($posts)}}</button>
-      @endif
+    <div class="mt-5" x-data="{  main: true , trashed: false }" >
+
+      <div class="flex justify-between">
+
+        @if (count($trashes) > 0)
+        <button class="text-sm p-2 rounded-md bg-gray-200" @click="main = !main ; trashed = !trashed "  x-text="main == true ? 'مشاهده زباله دان {{'" '.count($trashes).' مورد "'}}' : 'مشاهده همه موارد {{'" '.count($posts).' مورد "'}}'"></button>
+        @else
+        <button class="text-sm p-2 rounded-md bg-gray-200"  >مشاهده همه موارد {{count($posts)}}</button>
+        @endif
+        <div >
+          <input class="p-2 rounded-md" wire:model.debounce.350ms="search" type="text" placeholder="جستجو ...">
+        </div>
+      </div>
+
+
     
       
       <div x-cloak x-show="main" class="flex items-center justify-center ">
@@ -22,7 +31,7 @@
                   <tr class="bg-gradient-to-tr from-primary-500 to-[#00abc7] flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
                       <th class="px-4 py-3">ردیف</th>
                       <th class="px-4 py-3">عنوان</th>
-                      <th class="px-4 py-3">لینک</th>
+                      <th class="px-4 py-3">لینک مقاله</th>
                       <th class="px-4 py-3">دسته بندی</th>
                       <th class="px-4 py-3">تاریخ ایجاد</th>
                       <th class="px-4 py-3">وضعیت انتشار</th>
@@ -49,19 +58,22 @@
                           <div class="text-right">
                             <p class="font-semibold">{{$post->title}}</p>
                             <p class="text-xs text-gray-600 dark:text-gray-400">
+                              
                               نویسنده :  {{ $post->Author->last_name}} 
                             </p>
                           </div>
                         </div>
                       </td>
                       <td class="px-4 py-3 text-sm">
-              
-                              {{$post->slug}}
-
+                        <a target="_blank" href="{{$post->path()}}">{{$post->slug}}</a>
                           </td>
                           <td class="px-4 py-3 text-sm">
-              
+
+
+                            @if ($post->PostCategory->name)
                             {{$post->PostCategory->name}}
+
+                            @endif
 
                         </td>
                           <td class="px-4 py-3 text-sm">
@@ -106,7 +118,7 @@
 
               </tbody>
           </table>
-          {{-- {{ $users->links() }} --}}
+          {{ $posts->links() }}
       </div>
     </div>
 
@@ -204,7 +216,7 @@
 
             </tbody>
         </table>
-        {{-- {{ $users->links() }} --}}
+        {{ $trashes->links() }}
     </div>
   </div>
 

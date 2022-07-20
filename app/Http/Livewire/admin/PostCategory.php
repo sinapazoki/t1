@@ -2,20 +2,22 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Content\Post;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\Content\PostCategory as PostCategorylist;
+use Livewire\WithPagination;
 
 class PostCategory extends Component
 {
     use LivewireAlert;
+    use WithPagination;
 
     public $name , $image , $description , $category_id, $imageupdated , $slug ;
 
     protected $rules = [
-        'name' => 'required|max:30',
-        'description' => 'required',
-        'slug' => 'required|unique:post_categories,slug',
+        'name' => 'required|max:70',
+        'slug' => 'unique:post_categories,slug',
 
     ];
     protected $messages = [
@@ -112,12 +114,39 @@ class PostCategory extends Component
 
     public function delete($id)
     {
-        PostCategorylist::find($id)->delete();
-       $this->resetInputFields();
-       $this->alert('warning', 'دسته مورد نظر حذف شد', [
-        'position' => 'center'
-    ]);
+        if($id == 1)
+        {
+            $this->alert('warning', 'حذف این دسته امکان پذیر نیست', [
+                'position' => 'center'
+            ]);
 
+        }
+        else
+        {
+
+            $posts = Post::where('category_id' , $id)->get();
+            if(count($posts) > 0)
+            {
+                foreach($posts as $post){
+                    $post->update([
+                        'category_id' => 1,
+                    ]);
+                }
+            }
+            $category = PostCategorylist::find($id);
+            $category->status = '0';
+            $category->save();
+            $category->delete();
+    
+    
+            $this->resetInputFields();
+           $this->alert('warning', 'دسته مورد نظر حذف شد', [
+            'position' => 'center'
+        ]);
+    
+
+        }
+        
    }
 
 
@@ -145,12 +174,28 @@ class PostCategory extends Component
     }
 
 
+    public function restore($id)
+    {
+        PostCategorylist::withTrashed()->find( $id)->restore();
+     $this->alert('success', 'بازیابی با موفقیت انجام شد', [
+         'position' => 'center'
+     ]);
+    }
+ 
+    public function forceDelete($id)
+    {
+        PostCategorylist::withTrashed()->find( $id)->forceDelete();
+     $this->alert('success', 'حذف با موفقیت انجام شد', [
+         'position' => 'center'
+     ]);
+    }
+
 
     public function render()
     {
         return view('livewire.admin.post.category.post-category' ,[
-            'postcategories' => PostCategorylist::all(),
-
+            'postcategories' => PostCategorylist::orderBy('created_at' , 'DESC')->paginate(10),
+            'trashes' => PostCategorylist::onlyTrashed()->orderBy('created_at' , 'DESC')->paginate(10),
         ]);
     }
 }

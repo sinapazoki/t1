@@ -27,4 +27,8 @@ class PostCategory extends Model
         ];
     }
 
+    public function PostCategoryPath()
+    {
+        return route('post.category' , $this->slug);
+    }
 }

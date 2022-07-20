@@ -9,12 +9,14 @@ use App\Models\Content\PostCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\WithPagination;
 
 class PostForm extends Component
 {
     use LivewireAlert;
+    use WithPagination;
 
-    public $image , $post_id, $imageupdated , $title , $category_update , $body_update ,$seo_title , $seo_description ;
+    public $image , $post_id, $imageupdated , $title , $category_update , $body_update ,$seo_title , $seo_description , $search;
 
     protected $rules = [
         'title' => 'required|max:70',
@@ -186,8 +188,8 @@ class PostForm extends Component
     public function render()
     {
         return view('livewire.admin.post.post-list' ,[
-            'posts' => Post::all(),
-            'trashes' => Post::onlyTrashed()->get(),
+            'posts' => Post::search(trim($this->search))->orderBy('created_at' , 'DESC')->paginate(10),
+            'trashes' => Post::onlyTrashed()->orderBy('deleted_at' , 'DESC')->paginate(10),
             'categories' => PostCategory::all() ,
         ]);
     }

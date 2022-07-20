@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostCategoriesTable extends Migration
+class CreateMenusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreatePostCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_categories', function (Blueprint $table) {
+        Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description')->nullable();
-            $table->string('slug')->unique()->nullable();
-            $table->text('image')->nullable();
+            $table->string('url');
+            $table->string('order')->default(0);
             $table->tinyInteger('status')->default(0);
+            $table->foreignId('parent_id')->nullable()->constrained('menus');
             $table->timestamps();
-            $table->softDeletes();
 
         });
     }
@@ -33,6 +32,6 @@ class CreatePostCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_categories');
+        Schema::dropIfExists('menus');
     }
 }

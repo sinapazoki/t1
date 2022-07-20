@@ -26,7 +26,7 @@ class CreatePostsTable extends Migration
             $table->bigInteger('reads')->unsigned()->default(0)->index();
             $table->timestamp('published_at');
             $table->foreignId('author_id')->constrained('users');
-            $table->foreignId('category_id')->constrained('post_categories');
+            $table->foreignId('category_id')->constrained('post_categories')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
 

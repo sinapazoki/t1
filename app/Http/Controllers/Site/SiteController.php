@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Site;
 
-use App\Http\Controllers\Controller;
 use App\Models\Content\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Site\ContactForm;
+use App\Models\Contact;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SiteController extends Controller
 {
@@ -18,7 +22,23 @@ class SiteController extends Controller
         $posts = Post::where('status', 1)->get();
         return view('site.Pages.home' , compact('posts'));
     }
-
+    
+    
+    public function GetContactForm(ContactForm $request)
+    {
+        $inputs = $request->all();
+        $new_contact['phone'] = $inputs['phone']; 
+        $new_contact['name'] = $inputs['name']; 
+        $new_contact['text'] = $inputs['text']; 
+        $new_contact['email'] = $inputs['email']; 
+        Contact::create($new_contact);
+        toast('فرم شما با موفقیت ارسال شد','success');
+        return view('site.Pages.Contact-us.contact');
+    }
+    public function ShowContact()
+    {
+        return view('site.Pages.Contact-us.contact');
+    }
     /**
      * Show the form for creating a new resource.
      *

@@ -1,4 +1,3 @@
-@include('sweetalert::alert')
 
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -22,36 +21,25 @@
 
         <body class="main font-iranyekan flex flex-col h-screen justify-between" >
 
-            <nav id="introduce" x-data="{ open: false }" class="bg-white fixed w-full z-10 top-0 shadow-md">
-                <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+            <nav id="introduce" x-data="{ menu: false }" class="md:bg-white fixed w-full z-10 top-0 shadow-md">
+                <div class="bg-white max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
                   <div class="relative flex items-center justify-between h-16">
+
                     <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
                       <!-- Mobile menu button-->
                       <button type="button" class="inline-flex items-center justify-center shadow-lg rounded-md text-primary-900  p-[7px]" aria-controls="mobile-menu" aria-expanded="false">
-                        <span class="sr-only">Open main menu</span>
-                        <!--
-                          Icon when menu is closed.
-            
-                          Heroicon name: outline/menu
-            
-                          Menu open: "hidden", Menu closed: "block"
-                        -->
-                        <svg @click="open = ! open" :class="[open ? 'hidden' : 'block']"
+                      
+                        <svg  @click="menu = ! menu" :class="[menu ? 'hidden' : 'block']"
                         class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
-                        <!--
-                          Icon when menu is open.
-            
-                          Heroicon name: outline/x
-            
-                          Menu open: "block", Menu closed: "hidden"
-                        -->
-                        <svg @click="open = ! open" x-cloak class=" h-6 w-6" :class="[open ? 'block' : 'hidden']" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+
+                        <svg @click="menu = ! menu" x-cloak class=" h-6 w-6" :class="[menu ? 'block' : 'hidden']"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                       </button>
                     </div>
+                    
                     <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                       <div class="flex-shrink-0 flex items-center mylogo">
                           <a href="#">
@@ -60,29 +48,35 @@
                           </a>
                       </div>
                       <div class="hidden sm:block m-auto">
-                        <div x-data="{ listmenu2: $persist(false).using(sessionStorage) , listmenu3: $persist(false).using(sessionStorage) , listmenu4: $persist(false).using(sessionStorage) , listmenu5: $persist(false).using(sessionStorage) , listmenu6: $persist(false).using(sessionStorage) , listmenu: $persist(true).using(sessionStorage)}" class="flex space-x-4">
-                          <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                          <a @click="listmenu = true ; listmenu2 = false ; listmenu3 = false ; listmenu4 = false ; listmenu5 = false ; listmenu6 = false" :class="listmenu ? 'text-[#25bdb4]' : 'text-[#7e7e7e]' " href="/" class=" border-nav px-3 py-2 text-md font-medium" aria-current="page">صفحه اصلی</a>
-            
-            
-            
-                          <a @click="listmenu = false ; listmenu2 = true ; listmenu3 = false ; listmenu4 = false ; listmenu5 = false ; listmenu6 = false" :class="listmenu2 ? 'text-[#25bdb4]' : 'text-[#7e7e7e]' " href="/category/traders" class=" border-nav px-3 py-2 text-md font-medium">مقالات</a>
-            
-                          <div class="relative" x-data="{ pc: false }"  @mouseover="pc = true"  @mouseleave="pc = false">
-                            <button :class="listmenu3 ? 'text-[#25bdb4]' : 'text-[#7e7e7e]' " class="border-nav px-3 py-2 text-md font-medium">
-                              <span>خدمات</span>
-                              <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': pc, 'rotate-0': !pc}" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1 rotate-0"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        <div class="flex space-x-4">
+
+                          @foreach ( $nav_menus as $menu )
+                          
+                          @if (count($menu->child) > 0)
+                          <div x-data="{ open: false }" class="relative">
+                            <button @mouseover="open = true" @mouseleave="open = false"  class="border-nav px-3 py-2 text-md font-medium">
+                              <span>{{$menu->name}}</span>
+                              <svg fill="currentColor" viewBox="0 0 20 20" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1 rotate-0"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                          
+                              <div x-show="open" x-cloak class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+                                <div   class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
+                                  @foreach ( $menu->child->sortBy('order') as $child )
+                                  <a class="block px-4 py-2 mt-2 text-md font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="{{asset($child->url)}}">{{$child->name}}</a>
+                                  @endforeach
+                                </div>
+                              </div>        
+                          
                             </button>
-                            <div x-show="pc" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48" style="display: none;">
-                              <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
-                                <a @click="listmenu = false ; listmenu2 = false ; listmenu3 = true ; listmenu4 = true ; listmenu5 = false ; listmenu6 = false" :class="listmenu4 ? 'text-[#25bdb4]' : 'text-[#7e7e7e]' " class="block px-4 py-2 mt-2 text-md font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="">خدمات 1</a>
-                                <a @click="listmenu = false ; listmenu2 = false ; listmenu3 = true ; listmenu4 = false ; listmenu5 = true ; listmenu6 = false" :class="listmenu5 ? 'text-[#25bdb4]' : 'text-[#7e7e7e]' " class="block px-4 py-2 mt-2 text-md font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="">خدمات 2</a>
-                                <a @click="listmenu = false ; listmenu2 = false ; listmenu3 = true ; listmenu4 = false ; listmenu5 = false ; listmenu6 = true" :class="listmenu6 ? 'text-[#25bdb4]' : 'text-[#7e7e7e]' " class="block px-4 py-2 mt-2 text-md font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="">خدمات 3</a>
-                              </div>
-                            </div>
                           </div>
-            
-                          <a  href="#contact" class="!text-[#4b4b4b] border-nav px-3 py-2 text-md">ارتباط با ما</a>
+
+
+                            @elseif ($menu->parent_id == null)
+                            <a  href="{{asset($menu->url)}}" class=" border-nav px-3 py-2 text-md font-medium" aria-current="page">{{$menu->name}}</a>       
+
+                          @endif
+
+                          @endforeach
+
                         </div>
                       </div>
                     </div>
@@ -120,11 +114,6 @@
                             @auth
                             <div class="mr-2 hidden sm:block">
                                 <p class="text-gray-500 text-sm -mb-[2px]">سلام؛ {{auth()->user()->name}}</p>
-                                {{-- <a class="flex items-center text-[#25bdb4] text-[10px]" href="{{ route('logout') }}"  onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();" class="text-[#25bdb4]"> <i data-feather="log-out" class="w-3 h-3 mr-2"></i>خروج از حساب</a>
-                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                               </form> --}}
                                <a class="flex items-center text-primary-500 text-[10px]" href="#" class="text-[#25bdb4]"> <i data-feather="log-out" class="w-3 h-3 mr-2"></i>مشاهده پروفایل</a>
 
                               </div>
@@ -137,49 +126,59 @@
                 </div>
             
                 <!-- Mobile menu, show/hide based on menu state. -->
-                <div x-show="open" x-cloak class="sm:hidden" id="mobile-menu">
-                  <div  x-data="{ listmenu2: $persist(false).using(sessionStorage) , listmenu3: $persist(false).using(sessionStorage) , listmenu4: $persist(false).using(sessionStorage) , listmenu5: $persist(false).using(sessionStorage) , listmenu6: $persist(false).using(sessionStorage) , listmenu: $persist(true).using(sessionStorage)}" class="px-5 pt-2 pb-3 space-y-1">
-                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                    <a @click="listmenu = true ; listmenu2 = false ; listmenu3 = false ; listmenu4 = false ; listmenu5 = false ; listmenu6 = false" :class="listmenu ? 'text-[#25bdb4]' : 'text-[#7e7e7e]' " href="/" class=" p-[7px] block px-3 py-2 rounded-md text-base font-medium" aria-current="page">صفحه اصلی</a>
-            
-                    <a @click="listmenu = false ; listmenu2 = true ; listmenu3 = false ; listmenu4 = false ; listmenu5 = false ; listmenu6 = false" :class="listmenu2 ? 'text-[#25bdb4]' : 'text-[#7e7e7e]' " href="/category/traders" class=" block px-3 py-2 rounded-md text-base font-medium">مصاحبه با تریدرها</a>
-            
-                    <div @click.away="pc = false" class="relative" x-data="{ pc: false }">
-                        <button @click="pc = !pc" :class="listmenu3 ? 'text-[#25bdb4]' : 'text-[#7e7e7e]'" class="border-nav px-3 py-2 text-sm font-medium">
-                          <span>تی دبلیو پلاس</span>
-                          <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': pc, 'rotate-0': !pc}" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1 rotate-0"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+
+
+                          
+                <div x-show="menu" x-cloak 
+                x-transition:enter="transition ease-in-out duration-300" x-transition:enter-start="opacity-0 transform scale-y-0 -translate-y-1/2" x-transition:enter-end="opacity-100 transform scale-y-100 translate-y-0" x-transition:leave="transition ease-in-out duration-300" x-transition:leave-start="opacity-100 transform scale-y-100 translate-y-0" x-transition:leave-end="opacity-0 transform scale-y-0 -translate-y-1/2"                class="sm:hidden" id="mobile-menu">
+                  <div   class="px-5 pt-2 pb-3 space-y-1 bg-white">
+
+                    @foreach ( $nav_menus as $menu )
+
+                    @if (count($menu->child) > 0)
+                   
+                    <div x-data="{ open: false }" class="relative border-b-[1px] border-gray-100">
+                        <button @click="open = !open" class="border-nav px-3 py-2 text-sm font-medium">
+                          <span class="text-base font-medium">{{$menu->name}}</span>
+                          <svg fill="currentColor" viewBox="0 0 20 20" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1 rotate-0"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                         </button>
-                        <div x-show="pc" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="inherit right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48" style="display: none;">
+                        <div x-show="open" x-cloak class="inherit right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48 " >
                           <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
-                            <a @click="listmenu = false ; listmenu2 = false ; listmenu3 = true ; listmenu4 = true ; listmenu5 = false ; listmenu6 = false" :class="listmenu4 ? 'text-[#25bdb4]' : 'text-[#7e7e7e]' " class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg " href="/category/journal">ژورنال معاملاتی</a>
-                            <a @click="listmenu = false ; listmenu2 = false ; listmenu3 = true ; listmenu4 = false ; listmenu5 = true ; listmenu6 = false" :class="listmenu5 ? 'text-[#25bdb4]' : 'text-[#7e7e7e]' " class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg " href="/category/financial-intelligence">هوش مالی</a>
-                            <a @click="listmenu = false ; listmenu2 = false ; listmenu3 = true ; listmenu4 = false ; listmenu5 = true ; listmenu6 = true" :class="listmenu6 ? 'text-[#25bdb4]' : 'text-[#7e7e7e]' " class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg " href="/category/personal-development">توسعه فردی</a>
+                            @foreach ( $menu->child->sortBy('order') as $child )
+                            <a class="block px-4 py-2 mt-2 text-md font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="">{{$child->name}}</a>
+                            @endforeach
                           </div>
                         </div>
                       </div>
             
-                    <a href="#contact" class="text-[#7e7e7e] block px-3 py-2 rounded-md text-base font-medium">ارتباط با ما</a>
+
+                      @elseif ($menu->parent_id == null)
+                      <a  href="{{asset($menu->url)}}" class="border-b-[1px] border-gray-100 p-[7px] block px-3 py-2 text-base font-medium" aria-current="page">{{$menu->name}}</a>
+                      @endif
+
+
+                    @endforeach
+
                   </div>
                 </div>
+
+
+
+
+
               </nav>
 
 
 
 
-
-
-
-
-
-              <main class="my-auto">
+              <main class="mb-auto">
+                @include('sweetalert::alert')
 
                     @section('content')
 
                     @show
 
               </main>
-
-
 
 
 

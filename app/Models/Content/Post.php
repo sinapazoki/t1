@@ -33,7 +33,7 @@ class Post extends Model
     }
     public function PostCategoryPath()
     {
-        return route('post.category' , [$this->PostCategory->slug]);
+        return route('post.category' , $this->PostCategory->slug);
     }
     public function Author()
     {
@@ -48,5 +48,12 @@ class Post extends Model
         return route('post.single' , [$this->PostCategory->slug ,$this->slug]);
     }
 
+    public function scopeSearch($query , $term)
+    {
+        $term = "%$term%";
+        $query->where(function($query) use ($term){
+            $query->where('title' , 'like' , $term);
+        });
+    }
 
 }

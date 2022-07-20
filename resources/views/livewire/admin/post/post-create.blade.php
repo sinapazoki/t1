@@ -8,9 +8,9 @@
               <div class="text-gray-600">
                 <div class="md:col-span-full mt-5">
 
-               <div id="holder" class="relative category-profile flex flex-col items-center m-auto h-[150px]">
+               <div id="holder" class="relative category-profile flex flex-col items-center m-auto">
                   @if (empty($image))
-                  <img src="{{ asset('/storage/admin-image/profile.jpeg') }}">
+                  <img class="bg-gray-50" src="{{ asset('/storage/admin-image/placeholder-image.png') }}">
                   @else
                   <a wire:click.prevent="removeimage()" class="cursor-pointer absolute bg-[#b31e27] w-[23px] h-[25px] right-0 rounded-full p-[5px] text-white " >✕</a>
                   <img src="{{ asset($image) }}">
@@ -24,7 +24,7 @@
                           <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         <div class="flex flex-col">
-                          <span class="mt-2 text-base leading-normal">آپلود تصویر</span>
+                          <span class="mt-2 text-base leading-normal">برای آپلود تصویر کلیک کنید</span>
                           <span class="leading-normal text-[10px]">PNG, JPG</span>
                         </div>
                         <input wire:model="image" id="thumbnail" class="form-control hidden" type="text" name="image"  onchange="this.dispatchEvent(new InputEvent('input'))" />

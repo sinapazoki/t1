@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\Customer\LoginRegisterController;
 use App\Http\Controllers\Blog\BlogController;
 use App\Http\Controllers\Site\SiteController;
+use App\Http\Livewire\Admin\MenuForm;
 use App\Http\Livewire\Admin\PostCreate;
 
 /*
@@ -50,9 +51,7 @@ Route::prefix('admin')->namespace('Admin')->group( function() {
         Route::get('posts', [PostController::class , 'index' ] )->name('admin-post-list');
         Route::get('posts/create', [PostController::class , 'create' ] )->name('admin-post-create');
 
-
-
-
+        Route::get('menus', [AdminCotroller::class , 'MenuList' ] )->name('admin-menu-list');
 
         Route::group(['prefix' => 'laravel-filemanager'], function () {
             \UniSharp\LaravelFilemanager\Lfm::routes();
@@ -63,15 +62,21 @@ Route::prefix('admin')->namespace('Admin')->group( function() {
 
 
 
+    Route::get('/posts/{category:category_id}/{post:slug}', [BlogController::class, 'show'])->name('post.single');
+    Route::get('/category/{category:category_id}', [BlogController::class, 'ShowCategory'])->name('post.category');
+    Route::get('/posts', [BlogController::class, 'index'])->name('post.index');
+    
+
+    Route::get('/contact-us', [SiteController::class, 'ShowContact'])->name('site.contact-us');
+    Route::middleware('throttle:contact-form')->post('/contact-us', [SiteController::class, 'GetContactForm'])->name('site.contact-form');
 
 
-Route::post('logout', [LoginRegisterController::class, 'logout'])->name('logout');
 
-Route::get('/', function () {
-    return view('site.Pages.welcome');
-})->name('home');
 
-Route::get('/home', [SiteController::class, 'index'])->name('site.home');
-Route::get('/post/{category:category_id}/{post:slug}', [BlogController::class, 'show'])->name('post.single');
-Route::get('/post/category/{category:category_id}', [BlogController::class, 'ShowCategory'])->name('post.category');
-Route::get('/posts', [BlogController::class, 'index'])->name('post.index');
+    Route::post('logout', [LoginRegisterController::class, 'logout'])->name('logout');
+
+    Route::get('/', function () {
+        return view('site.Pages.welcome');
+    })->name('home');
+
+    Route::get('/home', [SiteController::class, 'index'])->name('site.home');

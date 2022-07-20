@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth\Admin\LoginFormRequest;
+use App\Models\Menu;
 
 class AdminCotroller extends Controller
 {
@@ -17,6 +18,7 @@ class AdminCotroller extends Controller
      */
     public function index()
     {
+        // $menus = Menu::all();
       return view('site.Admin.admin-home');
     }
 
@@ -25,7 +27,12 @@ class AdminCotroller extends Controller
         return view('site.Admin.User.admin-users');
 
     }
+    public function MenuList()
+    {
+        return view('site.Admin.Menu.admin-menus');
 
+    }
+    
     public function LoginForm()
     {
         if (auth()->check() &&  auth()->user()->role_id == 1 && auth()->user()->status == 1) {

@@ -43,7 +43,7 @@
                       class="absolute inset-y-0 right-0 w-1 bg-cyan-600 rounded-tl-lg rounded-bl-lg"
                       aria-hidden="true"
                     ></span>
-                    <a aria-current="page" class="space-x-2 space-x-reverse inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 " href="">
+                    <a aria-current="page" class="space-x-2 space-x-reverse inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 " href="{{route('admin-home')}}">
                     <div class="menu__icon "> <i data-feather="home"></i> </div>
                     <div class="menu__title "> پیشخوان </div>
                     </a>
@@ -93,6 +93,15 @@
                     >
                     <div class="menu__icon"> <i data-feather="tool"></i> </div>
                     <div class="menu__title"> تنظیمات سایت</div>
+                    </a>
+                  </li>
+                  <li class="relative px-6 py-3">
+                    <a
+                      class="space-x-2 space-x-reverse inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                      href="{{route('admin-menu-list')}}"
+                    >
+                    <div class="menu__icon"> <i data-feather="tool"></i> </div>
+                    <div class="menu__title"> تنظیمات منو</div>
                     </a>
                   </li>
                   <li class="relative px-6 py-3">
